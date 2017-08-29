@@ -11,6 +11,11 @@ queries such as a Delete query that has no conditions, so it targets the
 whole table
 
 
+Features as of Version 0.25
+
+-UPDATE queries have passed initial testing
+
+
 Features as of Version 0.2
 
 - INSERT, SEARCH, and DELETE queries passed initial testing
@@ -20,7 +25,7 @@ Features as of Version 0.2
 
 Upcoming Features:
 
-- Working on the Update Function
+- Working to minimize and make building queries more efficient
 
 
 

@@ -264,7 +264,7 @@ class DatabaseCommunicator
 
 
 		//using join we can add an "=" and push update
-		array_push($this->updated_values, (join("=", $colName, $val)));
+		$this ->updated_values[$colName] = $val;
 		return true;
 	}
 
@@ -304,9 +304,17 @@ class DatabaseCommunicator
 				$this->current_query = "UPDATE " . $this->current_table . " SET ";
 
 				if (sizeOf($this->updated_values) > 0)
-					$this->current_query .= (join(",", $this->updated_values)) . " ";
+					foreach(array_keys($this->updated_values) as $key)
+						$this -> current_query .= $key . "=" .
+								( is_string($this->updated_values[$key]) ? //if value is string
+									'"' . $this->updated_values[$key] . '"': //then concat quotes for value
+									$this->updated_values[$key]) . ',';//if not just concat the value
 
 
+				//IDEA: PAD THE QUOTES IN UpdateValue(0 to avoid all these complexities
+
+				//remove last comma, definitely should think of a better way.
+				$this -> current_query = substr_replace($this -> current_query, "", -1);
 
 				break;
 			case $this::INSERT :
